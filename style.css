@@ -1,0 +1,156 @@
+:root {
+  --bg: #ffffff;
+  --fg: #1a1a1a;
+  --muted: #6b7280;
+  --link: #0b57d0;
+  --rule: #e5e7eb;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14161a;
+    --fg: #e6e6e6;
+    --muted: #9aa3ad;
+    --link: #7ab0ff;
+    --rule: #2a2e35;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0 auto;
+  padding: 4rem 1.25rem 3rem;
+  max-width: 40rem;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  margin: 2.5rem 0 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+p { margin: 0.75rem 0; }
+
+.tagline {
+  color: var(--muted);
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:hover { text-decoration: underline; }
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cv li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1rem;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+}
+
+.cv .sub {
+  flex-basis: 100%;
+  margin: 0.35rem 0 0.75rem 0.15rem;
+  padding-left: 0.85rem;
+  border-left: 1px solid var(--rule);
+}
+
+.cv .sub li {
+  margin-bottom: 0.2rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.cv strong {
+  font-weight: 600;
+}
+
+.cv .when {
+  flex: none;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.news li {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+}
+
+.news .date {
+  flex: none;
+  width: 7.5rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 34rem) {
+  .cv li,
+  .news li {
+    display: block;
+  }
+  .cv .when,
+  .news .date {
+    display: block;
+  }
+}
+
+.links li {
+  display: inline;
+}
+
+.links li:not(:last-child)::after {
+  content: " · ";
+  color: var(--muted);
+}
+
+footer {
+  margin-top: 3.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.scene {
+  height: 260px;
+  margin: 1.75rem 0 0.5rem;
+}
+
+.scene[hidden] { display: none; }
+
+.scene canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 34rem) {
+  .scene { height: 200px; }
+}
