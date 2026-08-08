@@ -1,5 +1,3 @@
-import * as THREE from './vendor/three.module.min.js';
-
 const container = document.getElementById('scene');
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -10,7 +8,7 @@ function palette() {
   return { bg: v('--bg'), fg: v('--fg'), muted: v('--muted'), link: v('--link') };
 }
 
-function init() {
+function init(THREE) {
   let colors = palette();
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -179,9 +177,19 @@ function init() {
   resize();
 }
 
-// Decorative only: if WebGL is unavailable, drop the band and leave the page as-is.
-try {
-  init();
-} catch (err) {
-  container.hidden = true;
+// Three.js is ~166 KB gzipped and purely decorative, so keep it off the critical
+// path: text renders first, the scene loads once the browser is idle. If WebGL is
+// unavailable or the import fails, drop the band and leave the page as-is.
+function boot() {
+  import('./vendor/three.module.min.js')
+    .then((THREE) => init(THREE))
+    .catch(() => {
+      container.hidden = true;
+    });
+}
+
+if ('requestIdleCallback' in window) {
+  requestIdleCallback(boot, { timeout: 2500 });
+} else {
+  addEventListener('load', boot);
 }
